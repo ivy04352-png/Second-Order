@@ -1,0 +1,149 @@
+/* Second Order — plain CSS, no framework, no build step */
+
+:root {
+  --bg: #f7f5f0;
+  --text: #1a1a1a;
+  --muted: #5c5a55;
+  --accent: #8a3324;
+  --line: #d8d3c8;
+  --max-width: 640px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+.wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 3rem 1.25rem 5rem;
+}
+
+header.site-header {
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.25rem;
+}
+
+header.site-header h1 {
+  font-size: 1.75rem;
+  margin: 0 0 0.35rem;
+  letter-spacing: -0.01em;
+}
+
+header.site-header h1 a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+header.site-header p.tagline {
+  color: var(--muted);
+  margin: 0;
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
+main {
+  min-height: 40vh;
+}
+
+h2 {
+  font-size: 1.35rem;
+  margin-top: 2rem;
+}
+
+a {
+  color: var(--accent);
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.post-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.post-list li {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.post-list li:last-child {
+  border-bottom: none;
+}
+
+.post-list a.post-title {
+  font-size: 1.15rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.post-list a.post-title:hover {
+  color: var(--accent);
+}
+
+.post-meta {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 0.25rem 0 0.4rem;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.post-excerpt {
+  margin: 0.4rem 0 0;
+}
+
+article.post h1 {
+  font-size: 1.65rem;
+  margin-bottom: 0.25rem;
+}
+
+article.post .post-meta {
+  margin-bottom: 2rem;
+}
+
+article.post p {
+  margin: 1.1rem 0;
+}
+
+article.post blockquote {
+  border-left: 3px solid var(--accent);
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+footer.site-footer {
+  border-top: 1px solid var(--line);
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.9rem;
+}

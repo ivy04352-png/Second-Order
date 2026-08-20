@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One customer, one flag, half the internet — Second Order</title>
+  <meta name="description" content="What Fastly's 2021 outage shows about the gap between how systems are designed to behave and how they actually behave under real conditions.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <h1><a href="../index.html">Second Order</a></h1>
+      <p class="tagline">How systems behave under pressure, versus how they say they behave.</p>
+    </header>
+
+    <main>
+      <a class="back-link" href="../index.html">&larr; All posts</a>
+
+      <article class="post">
+        <h1>One customer, one flag, half the internet: what Fastly's 2021 outage actually shows about "resilient" systems</h1>
+        <p class="post-meta">First post</p>
+
+        <p>On June 8, 2021, a single Fastly customer pushed a configuration change. It was valid. It followed the rules. Nothing about it should have mattered to anyone outside that customer's own account. Within minutes, roughly 85% of Fastly's network started returning errors, and a long list of major sites &mdash; Amazon, Reddit, The New York Times, the UK government's home page, Twitch, and others &mdash; went dark or badly broken for the better part of an hour.</p>
+
+        <p>Fastly's own postmortem is admirably blunt about the cause: an "undiscovered software bug" had been sitting in a May software deployment for weeks. It did nothing, because nothing had yet asked it to do anything. Then one ordinary customer, doing an ordinary thing, happened to submit a configuration that satisfied the exact conditions the bug needed to fire. The system did not fail because someone made a mistake. It failed because a landmine had already been buried, and everyone had been walking around it by accident for a month.</p>
+
+        <p>This is the part worth sitting with, separate from the incident itself: a resilient-looking system and a fragile one can be, for weeks at a time, observationally identical. Fastly's network handled a torrent of ordinary customer changes every day in May 2021 without falling over. From the outside &mdash; from any dashboard, any uptime report, any customer's experience &mdash; the system looked robust. It was not robust. It was untested against one particular input, and that input hadn't shown up yet.</p>
+
+        <blockquote>Even though there were specific conditions that triggered this outage, we should have anticipated it. &mdash; Nick Rockwell, Fastly SVP of Engineering and Infrastructure, in the company's public incident summary</blockquote>
+
+        <p>That sentence is the whole genre in miniature. It's not an admission of negligence so much as a description of a structural blind spot: testing regimes, by construction, mostly exercise the inputs someone thought to test. A system's behavior under the inputs nobody thought to check is not unknown in the sense of being unknowable &mdash; it's unknown in the more mundane sense that nobody looked. The bug was there in the code the whole time. It was discoverable. It just hadn't been discovered, because discovery requires someone to go looking for failure rather than confirming success.</p>
+
+        <p>The interesting design lesson isn't "test more inputs," though that's true and useless as advice &mdash; you cannot test all inputs, that's the actual problem. The more useful frame is about what a system reveals about itself only when it's under a condition it wasn't built to expect. First-order behavior is what a system does when everything is within the envelope its designers imagined. Second-order behavior is what happens at the edges of that envelope, or just past them &mdash; and it is second-order behavior, not the calm-day behavior, that tells you what the system actually is.</p>
+
+        <p>Fastly recovered in 49 minutes, which by the standards of internet infrastructure incidents is fast, and their public writeup was unusually direct for a company explaining why it broke a chunk of the web. Both of those are real, creditable facts about how the organization responded after the failure. Neither of them tells you anything about whether the underlying fragility &mdash; a single customer's ordinary action having blast radius across unrelated customers &mdash; had been addressed as a category, versus one specific bug being patched. A single bug fix answers the question "will this exact bug recur." It does not answer the harder question, which is whether the architecture still permits one customer's local, valid action to become everyone else's outage. That is a design property, not a bug, and design properties don't get fixed by a hotfix.</p>
+
+        <p>This is the pattern this blog is going to keep coming back to: systems, organizations, and people all have a presentation layer &mdash; what they look like when nothing is pushing on them &mdash; and a second-order layer, what they do when something finally does. The gap between the two is usually invisible until an ordinary, unremarkable input happens to land in exactly the wrong place. The Fastly incident is a clean example because the "wrong place" was so mundane: not an attack, not a natural disaster, not even a large customer. Just routine use, meeting an assumption that had never been tested.</p>
+
+        <p><em>Source: Fastly's public incident summary, "Summary of June 8 outage" (fastly.com/blog/summary-of-june-8-outage), and contemporaneous reporting.</em></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>Second Order. Independent notes, public sources only.</p>
+    </footer>
+  </div>
+</body>
+</html>
