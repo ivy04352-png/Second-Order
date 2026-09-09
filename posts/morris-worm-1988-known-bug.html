@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Known, admitted, and left in anyway: what the 1988 Morris worm actually proves about patching — Second Order</title>
+  <meta name="description" content="The bug that took down 10% of the early internet in 1988 wasn't hidden. Its own author had known about it for years and left it in on purpose. That's the actual story.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <h1><a href="../index.html">Second Order</a></h1>
+      <p class="tagline">How systems behave under pressure, versus how they say they behave.</p>
+    </header>
+
+    <main>
+      <a class="back-link" href="../index.html">&larr; All posts</a>
+
+      <article class="post">
+        <h1>Known, admitted, and left in anyway: what the 1988 Morris worm actually proves about patching</h1>
+        <p class="post-meta">Fourth post</p>
+
+        <p>People fix vulnerabilities when the cost of leaving them in becomes impossible to ignore. They do not fix them when someone simply knows about them. The 1988 Morris worm is usually told as a discovery story: a grad student found a hole, exploited it, and chaos followed. That framing is wrong. The main hole had been known, by name, by the person who put it there, for years. Nobody removed it because removing it was inconvenient. The worm did not reveal a secret. It sent an invoice for one everybody already knew was open.</p>
+
+        <p>On the evening of 2 November 1988, Robert Tappan Morris, a Cornell graduate student, released a self-replicating program onto the early internet from a machine at MIT. It spread through three paths: weak or absent passwords, a buffer overflow in the finger daemon, and a debug feature in the sendmail mail program. That third one is the interesting one. Sendmail's author, Eric Allman, put a remote DEBUG command into the software himself, years earlier, so he could get privileged access to a university computer he wasn't officially allowed onto, to fix a problem the administrators refused to let him touch directly. He has said as much in public, on the record, without much shame about it: he wrote the backdoor to work around a bureaucratic wall, and he never took it out because it kept being useful. It sat there, live, reachable over the network, until the day it ran across most of the connected world at once.</p>
+
+        <p>Morris didn't need to find that. He needed to know it existed and use it, which required no cleverness at all beyond reading sendmail's own behavior. The actual engineering failure in the worm was somewhere else entirely: a coding decision that made it copy itself onto machines it had already infected, at a fixed 14% rate, regardless of whether the machine reported already being compromised. Morris built that in because he assumed administrators would fake the "already infected" signal to repel the worm, so he wanted it to reinfect anyway. The result was a program that piled multiple copies of itself onto the same machines until they choked, which is a distinct problem from the entry method and arguably the one that actually caused the outage. The backdoor got him in. His own paranoia about administrators lying to his program is what turned a quiet infection into a nationally reported one.</p>
+
+        <p>Roughly two thousand machines went down, by Clifford Stoll's estimate at the time, out of maybe sixty thousand connected to the early internet. The commonly repeated figure of six thousand came from a guess made up on the spot for a reporter, not a count. Cleanup ran two days per machine in some cases. The US Court of Appeals later put the cost of removing the worm from a single installation at anywhere from $200 to $53,000, a spread wide enough to tell you nobody had a real cost model either, before or after.</p>
+
+        <p>Morris was the first person convicted under the 1986 Computer Fraud and Abuse Act. He got three years of probation, 400 hours of community service, and a $10,050 fine. No prison time. Set that against a network partition that lasted days, while regional networks physically disconnected from each other to stop reinfecting themselves after cleaning up. The legal system treated the event as a minor federal offense committed by one twenty-three-year-old. The actual damage was closer to critical infrastructure failure, distributed across every institution running the same operating system with the same known-and-unpatched hole. Nobody who ran a vulnerable machine faced any consequence at all, legal or otherwise, for running it. The only person punished was the one who proved the vulnerability mattered.</p>
+
+        <p>What actually changed was institutional, not technical: DARPA funded CERT/CC at Carnegie Mellon that same month, giving the US a standing body to coordinate responses to network-wide incidents, because there hadn't been one. That's the real artifact of 1988. Not a patch. A phone number to call the next time this happened, because everyone involved had just learned there was no such number the first time.</p>
+
+        <p>Stoll, who had spent 1986 tracking a different intruder through Lawrence Berkeley's systems, drew the correct lesson from the worm at the time and it still holds: the danger wasn't the specific hole, it was that almost the entire academic internet ran the identical Berkeley Unix, so one exploit worked everywhere at once. Monoculture turns a local bug into a global one. That's a supply chain problem, not a coding problem, and it hasn't gone away. It's gotten worse, because more of the internet now runs on fewer shared components than it did in 1988, not more.</p>
+
+        <p>The part people leave out is the plainer one. Allman knew what DEBUG did. He knew it was still reachable. He didn't remove it because nobody had made him pay for leaving it in, and then one night in 1988 the bill arrived for the entire internet at once, addressed to nobody in particular. That's not a story about a hidden flaw. It's a story about what actually triggers a fix: not knowledge of the hole, but a cost big enough that someone, somewhere, has to write it down.</p>
+
+        <p><em>Sources: Wikipedia, "Morris worm" and "Robert Tappan Morris"; FBI.gov, "Morris Worm" history page; Eric Allman, recorded remarks at a 2021 Hillside Club Fireside Meeting, quoted on the Internet History mailing list (isoc.org), March 2022; US Court of Appeals cost estimates as cited in the Morris worm record; Cornell alumni magazine account of Morris's sentencing.</em></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>Second Order. Independent notes, public sources only.</p>
+    </footer>
+  </div>
+</body>
+</html>
