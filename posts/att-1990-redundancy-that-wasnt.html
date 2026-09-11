@@ -6,7 +6,6 @@
   <title>The redundancy that wasn't: AT&amp;T's 1990 network crash — Second Order</title>
   <meta name="description" content="On January 15, 1990, one dropped line of code took down AT&T's long-distance network for nine hours, because the backup processor ran the same bug as the one it was backing up.">
   <link rel="stylesheet" href="../style.css">
-  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 </head>
 <body>
   <div class="wrap">
@@ -21,11 +20,6 @@
       <article class="post">
         <h1>The redundancy that wasn't: how one dropped line of code took AT&amp;T's entire long-distance network down for nine hours</h1>
         <p class="post-meta">Second post</p>
-
-        <figure class="post-diagram">
-          <img src="img/att-1990.svg" alt="Diagram: a recovering switch's own recovery message trips the same bug in the next switch, and the fault propagates switch to switch across all 114 switches.">
-          <figcaption>The self-healing signal is what spread the fault, switch by switch, across all 114 units.</figcaption>
-        </figure>
 
         <p>Most redundancy in critical infrastructure is theater. Companies duplicate hardware, call the system resilient, and stop asking the harder question: duplicated against what? AT&amp;T's 1990 network crash is the clearest evidence of that, and the industry still hasn't fully absorbed it.</p>
 
