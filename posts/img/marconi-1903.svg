@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 200" width="640" height="200" role="img" aria-label="Diagram: Marconi transmits from Poldhu, Cornwall to a receiver in London, but Maskelyne's own transmitter on the coast intercepts and overrides the channel before the real signal arrives.">
+  <style>
+    text { font-family: Georgia, 'Iowan Old Style', serif; fill: #1a1a1a; }
+    .muted { fill: #5c5a55; font-size: 11px; }
+    .label { font-size: 13px; }
+  </style>
+
+  <!-- Poldhu -->
+  <rect x="20" y="80" width="100" height="50" rx="6" fill="#f7f5f0" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="70" y="110" text-anchor="middle" class="label">Poldhu</text>
+  <text x="70" y="145" text-anchor="middle" class="muted">Marconi's real signal</text>
+
+  <!-- dotted line to receiver, intended path -->
+  <path d="M120 105 H 500" stroke="#5c5a55" stroke-width="1.5" stroke-dasharray="3 4"/>
+
+  <!-- Maskelyne intercept, above the line -->
+  <rect x="260" y="20" width="130" height="50" rx="6" fill="#f7f5f0" stroke="#8a3324" stroke-width="2"/>
+  <text x="325" y="50" text-anchor="middle" class="label">Maskelyne's mast</text>
+  <text x="325" y="8" text-anchor="middle" class="muted">untuned, closer, louder</text>
+  <path d="M325 70 V 100" stroke="#8a3324" stroke-width="2" marker-end="url(#arrow3)"/>
+
+  <!-- receiver -->
+  <rect x="500" y="80" width="110" height="50" rx="6" fill="#f7f5f0" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="555" y="110" text-anchor="middle" class="label">Royal Institution</text>
+  <text x="555" y="145" text-anchor="middle" class="muted">untuned receiver, live audience</text>
+
+  <text x="320" y="180" text-anchor="middle" class="muted">"tuned" security stopped nothing; any untuned receiver, near or far, heard everything</text>
+
+  <defs>
+    <marker id="arrow3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#8a3324"/>
+    </marker>
+  </defs>
+</svg>

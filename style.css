@@ -147,3 +147,26 @@ footer.site-footer {
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 0.9rem;
 }
+
+figure.post-diagram {
+  margin: 2rem 0;
+  padding: 1rem 0.5rem;
+  background: #fdfcf9;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+figure.post-diagram img,
+figure.post-diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+figure.post-diagram figcaption {
+  margin-top: 0.5rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  text-align: center;
+}

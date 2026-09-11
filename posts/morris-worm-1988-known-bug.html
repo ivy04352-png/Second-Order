@@ -6,6 +6,7 @@
   <title>Known, admitted, and left in anyway: what the 1988 Morris worm actually proves about patching — Second Order</title>
   <meta name="description" content="The bug that took down 10% of the early internet in 1988 wasn't hidden. Its own author had known about it for years and left it in on purpose. That's the actual story.">
   <link rel="stylesheet" href="../style.css">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 </head>
 <body>
   <div class="wrap">
@@ -20,6 +21,11 @@
       <article class="post">
         <h1>Known, admitted, and left in anyway: what the 1988 Morris worm actually proves about patching</h1>
         <p class="post-meta">Fourth post</p>
+
+        <figure class="post-diagram">
+          <img src="img/morris-worm-1988.svg" alt="Diagram: a known DEBUG backdoor left in sendmail for years gets used by the worm as an entry path, then a separate reinfection bug turns a quiet spread into a network-wide crash.">
+          <figcaption>A years-old known hole plus one reinfection bug, not a discovered secret.</figcaption>
+        </figure>
 
         <p>People fix vulnerabilities when the cost of leaving them in becomes impossible to ignore. They do not fix them when someone simply knows about them. The 1988 Morris worm is usually told as a discovery story: a grad student found a hole, exploited it, and chaos followed. That framing is wrong. The main hole had been known, by name, by the person who put it there, for years. Nobody removed it because removing it was inconvenient. The worm did not reveal a secret. It sent an invoice for one everybody already knew was open.</p>
 
