@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No alarm is not the same as all clear: what the 2003 blackout proves about silent failure — Second Order</title>
+  <meta name="description" content="FirstEnergy's control room ignored warning phone calls because their monitoring system stayed quiet. The system was quiet because it had already crashed. Silence is not a status. It's the absence of one, and control rooms keep mistaking it for good news.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <h1><a href="../index.html">Second Order</a></h1>
+      <p class="tagline">How systems behave under pressure, versus how they say they behave.</p>
+    </header>
+
+    <main>
+      <a class="back-link" href="../index.html">&larr; All posts</a>
+
+      <article class="post">
+        <h1>No alarm is not the same as all clear: what the 2003 blackout proves about silent failure</h1>
+        <p class="post-meta">September 14, 2026</p>
+
+        <p>An operator who trusts a quiet screen more than a ringing phone has already made a mistake. It doesn't matter how good the screen usually is. On 14 August 2003, control room staff at FirstEnergy in Ohio got phone calls from a neighboring utility warning them that a shared power line had tripped and reset itself. They didn't act on the calls. Their monitoring system showed nothing wrong, so they treated the calls as noise. The monitoring system showed nothing wrong because it had frozen forty minutes earlier and stopped updating. Nobody in the room knew that. This is the actual failure: a system that goes silent gets read as confirmation, not as a missing answer. That habit, not any single tree branch or line of code, produced the largest blackout in North American history.</p>
+
+        <p>The physical chain is well documented and, on its own, unremarkable. It was a hot day. FirstEnergy hadn't kept up with its five-year tree-trimming schedule. At 1:31pm a generating plant near Cleveland went offline. At 2:02pm a 345kV transmission line sagged into an overgrown tree and tripped. Sagging lines shift load onto neighboring lines, which then sag and trip in turn if nobody intervenes. That's how a single tree becomes a cascade: physics, not malice. None of this is unusual for a summer afternoon on the American grid, and on any other day it would have been a local incident, fixed by an operator rerouting load within the hour.</p>
+
+        <p>What made 14 August different happened twelve minutes after that first trip. At 2:14pm, the alarm processing function in FirstEnergy's control room software, a GE Energy product called XA/21, hit a race condition: two internal processes wrote to the same data structure at the same time, corrupted it, and dropped the alarm system into an infinite loop. It stopped generating alarms. It did not crash outright and it did not display an error. It just stopped telling anyone anything, while every other part of the system kept running and kept looking normal. Unprocessed alarm events piled into a queue that had no upper bound. Thirty minutes later that queue ate all available memory and took the primary server down with it. Control failed over to the backup server, which had the identical software and no defense against the identical bug, and the backup queue filled and crashed too, by 2:54pm.</p>
+
+        <p>For the next hour and a half, three more transmission lines sagged into trees and tripped, one after another, and the control room's displays kept reporting a system that was fine. Investigators later spent eight weeks and reproduced the failure in a lab before finding the race condition, buried in roughly a million lines of alarm-handling code inside a four-million-line system. It had run for millions of operating hours before that afternoon without ever triggering it.</p>
+
+        <p>None of that inevitably causes a regional blackout. What causes a regional blackout is what the room did in response to silence: nothing. American Electric Power called to report the tripped shared line. FirstEnergy staff, watching a system that showed no problem, discounted the warning. They did not escalate, did not call around to confirm, did not treat the absence of an alarm as itself suspicious. A functioning alarm system and a broken one that fails silently produce the exact same experience for an operator who isn't specifically checking whether it's still alive: quiet. There was no difference on the screen between "everything is fine" and "the thing that tells you if it's fine has stopped working." By the time anyone in the control room understood which one they were looking at, it was 3:45pm, an hour and a half after the alarm processor had already died, and the grid was past the point where local action could have stopped the cascade. Sixteen more lines failed in the next hour. By 4:13pm, 508 generating units across 256 plants were offline and 50 million people from Ohio to Ontario had no power, some for four days.</p>
+
+        <p>The industry's own postmortem, the joint US-Canada Task Force report, put most of the blame on FirstEnergy's tree maintenance, training, and communication with neighboring operators, and recommended tighter grid coordination standards. Fair enough as far as it goes. But it treats the software failure as a discrete, fixable bug rather than as the exposure of a design assumption running through the whole control room: that no alarm means no problem. That assumption is backwards. A monitoring system can fail in exactly two ways, by crying wolf or by staying silent when it shouldn't, and control rooms build years of procedure around defending against the first while having almost nothing in place for the second. Nobody drills for "what if the thing that tells us about problems has itself become the problem." GE patched the specific race condition afterward. That fixes this bug. It does not fix the underlying habit of reading silence as safety, which will happily attach itself to whatever software runs the room next.</p>
+
+        <p>The honest fix isn't better alarm code, though FirstEnergy needed that too. It's treating an unusually quiet monitoring system as a red flag in its own right, the same category of event as an alarm going off, not a lesser one. A phone call reporting a real-world event that contradicts your dashboard should outrank the dashboard, full stop, especially when the dashboard has been suspiciously well-behaved for the last half hour. Most control rooms, then and now, are built to do the opposite: trust the instrument, discount the human. That's not a 2003 problem or a GE Energy problem. It's what happens whenever an organization decides that an absence of reported problems is the same thing as an absence of problems, which is a decision made by default and almost never on purpose.</p>
+
+        <p><em>Sources: U.S.-Canada Power System Outage Task Force, "Final Report on the August 14, 2003 Blackout in the United States and Canada" (April 2004); Kevin Poulsen, "Tracking the Blackout Bug," The Register, 8 April 2004; Wikipedia, "Northeast blackout of 2003"; Availability Digest, "The Great 2003 Northeast Blackout and the $6 Billion Software Bug," March 2007.</em></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>Second Order. Independent notes, public sources only.</p>
+    </footer>
+  </div>
+</body>
+</html>
