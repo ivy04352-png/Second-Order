@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Industroyer was built to be the smarter attack on Ukraine's grid. It did less damage than the crude one a year before — Second Order</title>
+  <meta name="description" content="In 2016, Russian military hackers deployed the first malware built to speak directly to power grid protocols. It cut power to a fifth of Kyiv for about an hour. A year earlier, the same group used stolen passwords and off-the-shelf spyware to black out three Ukrainian utilities for up to six hours. Sophistication in an attack doesn't predict its damage.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <h1><a href="../index.html">Second Order</a></h1>
+      <p class="tagline">How systems behave under pressure, versus how they say they behave.</p>
+    </header>
+
+    <main>
+      <a class="back-link" href="../index.html">&larr; All posts</a>
+
+      <article class="post">
+        <h1>Industroyer was built to be the smarter attack on Ukraine's grid. It did less damage than the crude one a year before</h1>
+        <p class="post-meta">September 22, 2026</p>
+
+        <p>In December 2016, Russian military hackers deployed the first malware ever built to speak the native language of electrical substations. Researchers at ESET called it the biggest threat to industrial control systems since Stuxnet. It cut power to about a fifth of Kyiv for roughly an hour. A year earlier, the same group had broken into three Ukrainian power companies using stolen passwords and the operators' own everyday software, and cut power to up to 230,000 people for as long as six hours. The advanced attack did less damage than the crude one. That gap is the actual finding here, and it says something the security industry doesn't like to hear: how much engineering goes into a cyberattack on infrastructure does not predict how much damage it does.</p>
+
+        <p>Start with 2015, the attack known as BlackEnergy after the malware family behind it. Sandworm, the GRU's Unit 74455, spent months inside the networks of three separate Ukrainian electricity distributors: Prykarpattyaoblenergo, Kyivoblenergo, and Chernivtsioblenergo. They got in through phishing emails carrying infected Word documents. From there they harvested employee credentials and mapped each company's network. They learned each control room's SCADA layout simply by watching real operators use it. On December 23, they logged in as those operators and opened breakers themselves, through the same mouse-driven interface a legitimate dispatcher would use. The attacks hit all three companies inside a 30-minute window. They also flooded the customer service phone lines with fake calls, so customers couldn't even report the outage. Around 225,000 to 230,000 people lost power, some for up to six hours. The attackers had overwritten firmware on serial-to-ethernet converters at the substations, so remote control of some breakers stayed broken for months after the lights came back.</p>
+
+        <p>A year later, the same group used a purpose-built malware framework. ESET named it Industroyer. Dragos named it CrashOverride. It spoke directly to substation protocols: IEC 101, IEC 104, IEC 61850. It didn't need a human to click anything. It could open a breaker and hold it open. Every time an operator tried to close the breaker again, the malware reopened it, an infinite loop that needed no dispatcher on the other end. A separate module knocked out Siemens SIPROTEC protection relays, using a known denial-of-service flaw to trick them into firmware-update mode, where their safety functions went dark. A wiper erased evidence afterward. Sandworm built every part of this to solve the one problem the 2015 attack never solved: take the human fallback off the table. On December 17, 2016, it hit a single transmission substation north of Kyiv. Operators switched to manual mode and had power back in about 75 minutes.</p>
+
+        <p>One substation, one hour. Three companies, up to six hours, with remote control broken for months afterward. The attack engineered specifically to defeat manual recovery got beaten by manual recovery faster than the attack that ran on nothing but stolen logins. Purpose-built industrial malware has to know the wiring. It needs the exact relay, the exact protocol, the exact firmware version at one specific site. That precision is exactly why it doesn't scale. Industroyer worked because Sandworm had done deep reconnaissance on one substation's exact configuration, and that investment bought them exactly that substation. Stolen credentials and a phished foothold, on the other hand, worked identically at three different companies running three different setups, because the weak point was never the protocol. It was whoever was holding the login. Dragos and other analysts think Industroyer may have been a proof of concept, with capability held in reserve rather than fully used. That is plausible. But an attack that demonstrates capability without deploying it still did less damage than an attack that used no special capability at all, and that is the finding, whatever Sandworm intended.</p>
+
+        <p>The lesson the security industry drew from Ukraine was to fear the next protocol-fluent malware family, and budgets followed that fear into ICS-specific detection tools and threat-intel subscriptions. The record from the two actual events points somewhere less exciting: at who has a login, and how closely anyone is watching what they do with it. A bespoke cyberweapon makes a better conference talk. A stolen password makes a better blackout.</p>
+
+        <p><em>Sources: E-ISAC / SANS ICS, "Analysis of the Cyber Attack on the Ukrainian Power Grid" (March 18, 2016); Dragos, CRASHOVERRIDE technical report; ESET, "Win32/Industroyer: A New Threat for Industrial Control Systems" (2017); Dark Reading, "First Malware Designed Solely for Electric Grids Caused 2016 Ukraine Outage"; MITRE ATT&amp;CK, Industroyer (S0604); NVD, CVE-2015-5374; risidata.com, "Ukraine BlackEnergy 3 power grid attack."</em></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>Second Order. Independent notes, public sources only.</p>
+    </footer>
+  </div>
+</body>
+</html>
