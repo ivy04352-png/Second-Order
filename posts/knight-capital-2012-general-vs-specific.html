@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knight Capital lost $460 million in 45 minutes. It had run the fire drill nine months earlier — Second Order</title>
+  <meta name="description" content="On August 1, 2012, dead code woke up on one trading server and cost Knight Capital $460 million in 45 minutes. Nine months earlier the firm had already lived through a smaller version of the same failure and fixed only the specific symptom, not the underlying gap.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <h1><a href="../index.html">Second Order</a></h1>
+      <p class="tagline">How systems behave under pressure, versus how they say they behave.</p>
+    </header>
+
+    <main>
+      <a class="back-link" href="../index.html">&larr; All posts</a>
+
+      <article class="post">
+        <h1>Knight Capital lost $460 million in 45 minutes. It had run the fire drill nine months earlier</h1>
+        <p class="post-meta">September 28, 2026</p>
+
+        <p>Every retelling of Knight Capital's 2012 trading disaster ends with the same moral: automate your deployments, or a stray human error will bankrupt you by lunch. That moral is true. It is also not the interesting part. Knight had already lived through a small version of the exact same failure nine months earlier. It diagnosed that failure as narrowly as it could, patched the one symptom in front of it, and moved on. Better deployment tooling would have stopped the specific bug that hit on August 1. It would not have stopped the company that produced it.</p>
+
+        <p>The mechanics of August 1 are well documented by the SEC's own order against the firm. Knight was preparing to join the New York Stock Exchange's new Retail Liquidity Program. To support it, engineers updated SMARS, the router that split large customer orders into smaller ones and sent them to exchanges. The update reused a flag that used to trigger an old function called Power Peg, retired since 2003 but never deleted from the code. Knight rolled the update out to eight servers between July 27 and July 31. A technician copied it to seven of them. Nobody checked the eighth. Knight had no written procedure requiring a second person to verify a deployment.</p>
+
+        <p>There was a second, older defect stacked underneath the first one. In 2005, Knight had moved the logic that tracked how many shares of a parent order had already been filled to an earlier point in the code. That change quietly broke Power Peg's ability to know when to stop. Knight never retested Power Peg to check, because nobody expected to call it again. When the market opened on August 1 and orders hit the eighth server, they triggered Power Peg, which began sending child orders for the same parent order without limit and without tracking the fills. It was dead code with a broken kill switch, reanimated by a bit flag that meant something else in 2012 than it had in 2003.</p>
+
+        <p>Knight's own systems tried to say so. Starting at 8:01 a.m., before the market even opened, an internal system generated automated emails referencing Power Peg errors. It sent 97 of them before 9:30 a.m. Nobody read them as an alarm, because nothing at Knight was built to treat them as one. Once the market opened and the bad server started firing, engineers spent close to 45 minutes trying to find the cause live, with no kill switch and no documented incident-response plan to follow. At one point, in an attempt to fix it, they removed the correct new code from the seven working servers. That reactivated Power Peg on all eight, not just one, and made the problem worse instead of smaller. By the time someone finally cut power to the whole router, Knight had generated four million erroneous executions across 154 stocks, 397 million shares, and a $460 million loss. The firm had about $365 million in cash the day before.</p>
+
+        <blockquote>Several previous events presented an opportunity for Knight to review the adequacy of its controls in their entirety. For example, in October 2011, Knight used test data to perform a weekend disaster recovery test. After the test concluded, Knight's LMM desk mistakenly continued to use the test data to generate automated quotes when trading began that Monday morning. Knight experienced a nearly $7.5 million loss as a result of this event. Knight responded to the event by limiting the operation of the system to market hours... Knight did not broadly consider whether it had sufficient controls to prevent the entry of erroneous orders, regardless of the specific system that sent the orders or the particular reason for that system's error. (SEC Order, Release No. 70694, paragraph 33)</blockquote>
+
+        <p>That paragraph is the real finding, and it gets skipped in most retellings because the August disaster is more dramatic. Ten months before Power Peg woke up, Knight had already watched a different system keep generating live orders off data it should not have been using, and lost $7.5 million finding out. Knight's response was to add a checklist item to that one system and restrict its operating hours. Nobody asked the general version of the question: does any control stop a system from flooding the market with orders it should not send, regardless of which system it is or why it misbehaves. Knight had no such control in October 2011. It still had none in August 2012, at fifty times the price.</p>
+
+        <p>The rescue came fast because the alternative was worse. A consortium led by Jefferies wired $400 million into Knight within five days, in exchange for stock that left existing shareholders holding about a quarter of what they used to own. Knight was sold to Getco four months later. The SEC fined the firm $12 million in 2013, a number small enough next to the loss that it reads more like a receipt than a penalty, and declined to revisit the rules governing when erroneous trades get cancelled. Nothing about the regulatory response suggests the industry treated the underlying gap as urgent either.</p>
+
+        <p>Automated, reviewed deployments would have caught the missing server. That much is true and worth doing regardless. But treat that as the lesson and you're aiming at the same narrow target Knight aimed at in 2011: the specific mechanism, not the missing general control. A firm that answers "what broke" instead of "what else could break the same way" will fix every incident it has already had and stay exposed to every incident shaped a little differently. Knight had the harder question on its desk in October 2011, with the receipt already paid. It filed the narrow answer instead, and nine months later the general version of the same failure sent the bill again, with three more zeros on it.</p>
+
+        <p><em>Sources: SEC Order Instituting Administrative and Cease-and-Desist Proceedings, In the Matter of Knight Capital Americas LLC, Release No. 70694 (October 16, 2013); SEC Press Release 2013-222; Doug Seven, "Knightmare: A DevOps Cautionary Tale" (2014).</em></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>Second Order. Independent notes, public sources only.</p>
+    </footer>
+  </div>
+</body>
+</html>
