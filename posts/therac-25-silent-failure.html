@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Therac-25's real flaw wasn't the race condition. It was that the machine couldn't tell you when it had failed - Second Order</title>
+  <meta name="description" content="Between 1985 and 1987 a radiation therapy machine overdosed at least six patients. The race condition that caused it gets most of the blame. The deeper problem is that AECL replaced hardware safety switches with software checks, and software checks fail silently in a way hardware never does.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <h1><a href="../index.html">Second Order</a></h1>
+      <p class="tagline">How systems behave under pressure, versus how they say they behave.</p>
+    </header>
+
+    <main>
+      <a class="back-link" href="../index.html">&larr; All posts</a>
+
+      <article class="post">
+        <h1>The Therac-25's real flaw wasn't the race condition. It was that the machine couldn't tell you when it had failed</h1>
+        <p class="post-meta">October 9, 2026</p>
+
+        <p>A switch that breaks announces itself. It jams, it trips, it stops clicking. You can see that it failed, often before anyone gets hurt. A software check that breaks usually announces nothing at all. It just returns the wrong answer, with the same confident formatting as the right one. Between 1985 and 1987, a radiation therapy machine called the Therac-25 overdosed at least six patients, killing three of them outright and contributing to a fourth death. The cause gets filed under "race condition," a specific and real bug. The actual failure is that Atomic Energy of Canada Limited had replaced hardware safety switches with software checks, and nobody involved had a way to tell that those checks had stopped working until a patient was already injured.</p>
+
+        <p>AECL's two earlier machines, the Therac-6 and Therac-20, used hardware interlocks: physical switches and circuits that would cut the beam if the machine wasn't configured correctly, independent of whatever the control software thought was happening. The software on those machines added convenience. It did not carry safety. The Therac-25 removed the interlocks and gave the software sole responsibility for deciding whether the beam was safe to fire. AECL also reused code from the older machines without re-testing the safety-relevant paths, on the reasoning that code already running in the field must already be safe. That reasoning only held while the hardware interlocks were there to catch what the software got wrong. Once AECL removed the interlocks, it was reusing code that had been masked, not proven.</p>
+
+        <p>The specific defect was a timing bug. An experienced operator at a console could type a treatment mode, realize it was wrong, and correct it within about eight seconds, well inside normal typing speed. If the correction landed inside a narrow window while the software was still processing the first entry, the system would arm the high-current electron beam meant for X-ray mode without moving the physical X-ray target into place. A second defect came from a flag variable that was incremented instead of set to a fixed value; often enough, it overflowed back to zero and skipped a safety check that depended on it being nonzero. Neither defect depended on the operator doing anything careless. Both depended on exact, reproducible timing that an operator could trigger by typing at a completely normal pace.</p>
+
+        <p>What makes this worse than an ordinary bug is what the machine reported while it was happening. At the East Texas Cancer Center in Tyler, in March 1986, the dosimeter that was supposed to measure delivered radiation reported that the patient had received 6 units against a planned 202. The real figure was between 16,500 and 25,000 rad delivered to about one square centimeter of tissue, more than eighty times the prescribed dose. The dosimeter wasn't broken in the way a cracked gauge is broken. It had saturated, and a saturated ion chamber reports a falsely low reading instead of refusing to report at all. The machine made an audible crackling noise during the overdose, which the treating physician took for evidence of an electric shock, because that is what a crackling medical device sounds like when you have no reason to suspect the dose display is lying to you.</p>
+
+        <p>AECL's response to each incident was confident and sincere, and that is the detail that matters most. After the Yakima Valley accident in 1985, AECL wrote back to the hospital explaining in detail why an overdose was not possible on the Therac-25. They were not covering anything up. Their own instrumentation, the thing they would have used to check their own claim, was reporting that nothing had gone wrong. A company that trusts its software's account of its own failure will keep issuing correct-sounding denials for exactly as long as the software keeps failing silently. Each time AECL did identify a cause, it fixed that one path, a microswitch, a specific keystroke sequence, and moved on, because nothing in the system was designed to ask whether other paths to the same silent failure still existed.</p>
+
+        <p>The hardware interlocks on the Therac-20 did not make that machine's software less buggy. The same race condition existed there too, discovered only later. It simply never got the chance to hurt anyone, because a physical interlock caught the output before it reached the patient, and the interlock tripping was itself a visible, loggable event. That is the actual difference between hardware and software safety, and it has nothing to do with which one a clever engineer can write more cheaply. A hardware interlock fails into a state you can see. A software interlock can fail into a state that looks exactly like success.</p>
+
+        <p><em>Sources: Nancy Leveson and Clark Turner, "An Investigation of the Therac-25 Accidents," IEEE Computer, 26(7), July 1993; Barbara Wade Rose, "Fatal Dose: Radiation Deaths Linked to AECL Computer Errors," Saturday Night, June 1994; Wikipedia, "Therac-25" (accessed October 2026).</em></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>Second Order. Independent notes, public sources only.</p>
+    </footer>
+  </div>
+</body>
+</html>
