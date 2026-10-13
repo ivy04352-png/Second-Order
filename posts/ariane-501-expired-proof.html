@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ariane 501 wasn't a software bug. It was a correctness proof that had quietly expired - Second Order</title>
+  <meta name="description" content="In 1996 Ariane 5 destroyed itself 37 seconds after launch because of code inherited from Ariane 4. The code had not failed. It had been correct for ten years, for a rocket that no longer existed.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <h1><a href="../index.html">Second Order</a></h1>
+      <p class="tagline">How systems behave under pressure, versus how they say they behave.</p>
+    </header>
+
+    <main>
+      <a class="back-link" href="../index.html">&larr; All posts</a>
+
+      <article class="post">
+        <h1>Ariane 501 wasn't a software bug. It was a correctness proof that had quietly expired</h1>
+        <p class="post-meta">October 13, 2026</p>
+
+        <p>Ten years of correct operation tells you a piece of code has only ever seen the inputs you gave it. It does not tell you the code is correct. On June 4, 1996, that distinction destroyed Europe's new Ariane 5 rocket 37 seconds after launch, along with four scientific satellites, for a total loss of more than $370 million. The software that caused it had not failed in any normal sense. It had been running without a single reported error for about a decade. It just stopped being asked questions that matched the world it was written for.</p>
+
+        <p>The rocket's Inertial Reference System, the SRI, ran a function that aligned its internal platform before liftoff. This function had no job once the vehicle left the ground. On Ariane 5 it kept running anyway, for about 40 seconds into flight, because the requirement came from Ariane 4 and nobody removed it. Ariane 4 needed that window so ground crews could recover from a countdown hold without restarting a 45-minute alignment process. Ariane 5 had a different launch sequence and did not need it. The function stayed in because the code "worked well on Ariane 4," in the inquiry board's words, and changing software that works is its own kind of risk.</p>
+
+        <p>Inside that leftover function, a variable called BH, horizontal bias, tracked the rocket's sideways velocity as a 64-bit float, then converted it to a 16-bit integer. Engineers had checked seven variables in that code for overflow risk and added protection to four of them, against a target processor workload of 80 percent. They left three unprotected, including BH, on the reasoning that physical limits made overflow impossible. That reasoning was correct for Ariane 4's early trajectory. Ariane 5 climbs faster and builds horizontal velocity sooner. BH blew past the ceiling a 16-bit integer can hold, the conversion threw an exception, and the SRI did exactly what its specification told it to do: it shut itself down.</p>
+
+        <p>There were two SRI units for redundancy, running identical software. The backup had hit the identical overflow about a tenth of a second earlier and had already shut itself down for the identical reason. A backup built from a clone of the thing it's backing up is not protection against a design error in that thing, only against random hardware wear. Both units went dark in the space of one data cycle, leaving the onboard computer taking steering commands from a diagnostic error code it was reading as flight data. The rocket swung to a 20-degree angle of attack, the airframe started coming apart, and the self-destruct system tripped the way it was supposed to.</p>
+
+        <p>No single person in this chain made an obviously bad call. Keeping the Ariane 4 alignment code was a reasonable instinct, not reused code because it was free, reused code because it was proven. Leaving three variables unprotected to stay under a processor budget was a documented, jointly agreed engineering tradeoff, not an oversight. Shutting down an SRI on any detected exception was standard practice, built for a world where exceptions mean a chip is dying, not where exceptions mean the code has walked into a case nobody validated. Every decision was locally sound. None of them got re-examined against the one fact that actually changed: Ariane 5 flies a different path through the sky than Ariane 4 did.</p>
+
+        <p>The inquiry board's report, chaired by Jacques-Louis Lions, says plainly that no one tested the alignment function against real Ariane 5 trajectory data, and that doing so would have caught the overflow before launch. It also makes a flatter claim, more important than the technical postmortem: the project had treated software as innocent until proven guilty. It should have treated software as guilty until proven innocent, under the specific conditions it will actually face. A decade of silence from the Ariane 4 alignment code was never evidence of correctness. It was evidence that nobody had yet pointed a new rocket at it.</p>
+
+        <p>That is the part the standard telling of this story tends to skip in favor of "always test your code." Testing was not the gap. Re-validating an inherited assumption against a changed environment was the gap, and that is a much harder discipline, because the code in question isn't new, isn't suspicious, and has a clean track record you can point to as a reason not to bother. Every system built partly from older, trusted components is carrying some version of BH right now: a value nobody expects to be large, checked once, against a world that has since moved on. The uncomfortable part isn't that Ariane 5 inherited a bug. It's that inheriting working code and inheriting its unstated assumptions are the same act, and only one of them shows up in the documentation.</p>
+
+        <p><em>Sources: "Ariane 5 Flight 501 Failure," Report by the Inquiry Board, chaired by Prof. J.L. Lions, Paris, 19 July 1996; European Space Agency press materials on the Ariane 501 inquiry; contemporaneous reporting on mission cost and payload.</em></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>Second Order. Independent notes, public sources only.</p>
+    </footer>
+  </div>
+</body>
+</html>
