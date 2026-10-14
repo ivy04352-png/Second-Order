@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mariner 1 and the bug that flew for years — Second Order</title>
+  <meta name="description" content="A missing overbar destroyed Mariner 1 in 1962. The same defect had flown on earlier missions without incident, because nothing had ever forced it to run.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <h1><a href="../index.html">Second Order</a></h1>
+      <p class="tagline">How systems behave under pressure, versus how they say they behave.</p>
+    </header>
+
+    <main>
+      <a class="back-link" href="../index.html">&larr; All posts</a>
+
+      <article class="post">
+        <h1>Mariner 1 and the bug that flew for years before anyone noticed it existed</h1>
+        <p class="post-meta">October 14, 2026</p>
+
+        <p>A test suite that passes tells you one thing: the paths it ran were fine. It tells you nothing about the paths it didn't run. Mariner 1 is the cleanest demonstration of that on record, and almost every retelling of it misses the point by chasing a punctuation mark instead.</p>
+
+        <p>On July 22, 1962, an Atlas-Agena rocket lifted off from Cape Canaveral carrying Mariner 1, NASA's first attempt to fly a spacecraft past another planet. At T+294.5 seconds, the Range Safety Officer sent a destruct command. The rocket had drifted off its planned path, heading toward shipping lanes or populated coastline, with no time left to recover before stage separation would have put it beyond anyone's control. Mariner 1 came down in pieces over the Atlantic. The mission cost $18.5 million, a large sum in 1962.</p>
+
+        <p>The popular version of this story, the one Arthur C. Clarke made famous by calling it "the most expensive hyphen in history," says a typo killed a spacecraft. That's close enough to be quotable and wrong enough to be useless. NASA's own mission page corrects it directly: the missing character was not a hyphen. It was an overbar, a small horizontal line written above a symbol in a handwritten guidance equation. The symbol was <code>Ṙn</code>, meaning the smoothed, time-averaged value of the rocket's measured velocity. Someone transcribing that equation by hand onto a coding sheet left the bar off. Without it, the program read the exact same symbol as an instruction to use the raw, unfiltered velocity reading instead of the smoothed one.</p>
+
+        <p>That error sat in the guidance software for longer than anyone likes to admit. According to Paul Ceruzzi's account in <em>Beyond the Limits: Flight Enters the Computer Age</em>, written for the Smithsonian's exhibition on the subject, the same flawed equation had already flown on earlier Atlas launches, including Ranger missions, without causing any problem at all. The bug wasn't new. It wasn't rare. It had simply never been exercised.</p>
+
+        <p>Here's why. The Atlas carried two radar systems during ascent: a Rate System that measured velocity, and a Track System that measured distance and angle. Under normal conditions, the ground guidance computer worked from live Rate System data and the smoothing equation never got called on to do anything important. The smoothing calculation only mattered if the Rate System's signal dropped out and the computer had to lean on an averaged value to ride through the gap. On every earlier flight, the Rate System had behaved. The broken equation sat in the code, correct enough to pass, because the one condition that would expose it had never occurred.</p>
+
+        <p>On Mariner 1, it occurred. The Atlas's airborne beacon lost lock with the ground for several short periods during ascent, a known and survivable type of fault. The guidance computer reached for its smoothing fallback exactly as designed. The fallback had been broken the entire time. Instead of filtering out ordinary radar noise, it now fed raw jitter straight into the steering logic. The computer read random fluctuation as a real course deviation and started issuing correction after correction for a drift that didn't exist. The rocket obeyed every one of them, and each correction made the next reading look worse. By the time the Range Safety Officer acted, there was no path back to a stable trajectory.</p>
+
+        <p>Two failures had to meet for Mariner 1 to be lost: a hardware glitch common enough to be unremarkable, and a software defect that had been sitting there the whole time, invisible precisely because nothing had ever made it run. Fix either one alone, on any earlier flight, and nobody would have found the other.</p>
+
+        <p>That is the part worth sitting with, not the hyphen. A piece of code having flown without incident is not evidence that it works. It's evidence that nothing has yet asked it to do the thing it's for. A fallback path, a disaster-recovery script, an error handler, a backup cold-start procedure: these only prove themselves the one time they're actually needed, and by definition that's the worst possible moment to discover they don't. Every system with an untested recovery branch is running Mariner 1's guidance code right now, quietly, and will keep doing so until something finally forces the branch to execute.</p>
+
+        <p>NASA's fix after the failure was not just to restore the missing bar. JPL audited the rest of the program for the same class of transcription error and added independent review of the guidance equations before the next flight. Mariner 2 launched on the same design 36 days later, on August 27, 1962, and on December 14 it became the first spacecraft to fly past another planet. The equation worked fine, once someone had actually made it run under the condition it was written for, on the ground, before launch, instead of leaving that job to a beacon fault 294 seconds into a live flight.</p>
+
+        <p>The lesson isn't "check your code carefully," which is advice nobody disagrees with and nobody acts on. It's narrower and less comfortable: a codebase's track record only covers the paths it has taken. If a condition has never fired, the code behind it hasn't been tested, no matter how many successful flights, deployments, or quarters you can point to. Uptime is not verification. It's just a count of how many times you got lucky with the inputs.</p>
+
+        <p><em>Sources: NASA's Mariner 1 mission page (science.nasa.gov/mission/mariner-1); Paul Ceruzzi, <em>Beyond the Limits: Flight Enters the Computer Age</em> (Smithsonian/MIT Press, 1989); and the Mariner R-1 Post-Flight Review Board findings as summarized in NASA's 1963 submission to the House Science and Astronautics Committee.</em></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>Second Order. Independent notes, public sources only.</p>
+    </footer>
+  </div>
+</body>
+</html>
