@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patriot at Dhahran, 1991: the Army had the exact number and sent a warning with none in it - Second Order</title>
+  <meta name="description" content="On February 25, 1991, a Patriot battery missed a Scud after running continuously for over 100 hours, and 28 American soldiers died. The Army already had the precise failure curve. The warning it sent out four days earlier left the number out.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <h1><a href="../index.html">Second Order</a></h1>
+      <p class="tagline">How systems behave under pressure, versus how they say they behave.</p>
+    </header>
+
+    <main>
+      <a class="back-link" href="../index.html">&larr; All posts</a>
+
+      <article class="post">
+        <h1>Patriot at Dhahran, 1991: the Army had the exact number and sent a warning with none in it</h1>
+        <p class="post-meta">October 19, 2026</p>
+
+        <p>A warning without a number is not a warning. It is paperwork that lets an organization say later that it told people. On February 25, 1991, a Patriot missile battery at Dhahran, Saudi Arabia, failed to track an incoming Iraqi Scud. The missile struck a US Army barracks and killed 28 soldiers, the single deadliest incident for American troops in the Gulf War. The cause was a known clock drift bug. The Army had already measured it precisely, enough to build a table of exact numbers, four days before the attack. It sent its users an adjective instead.</p>
+
+        <p>The Patriot was built in the 1970s to defend against aircraft and cruise missiles moving at up to Mach 2. It was designed to move. A battery would set up, run for a few hours, then relocate so it would not become a fixed target. Nobody designed it to sit in one place and run continuously for days. Desert Storm asked it to do exactly that, against Scuds flying at Mach 5, a threat the system had not been built or tested for.</p>
+
+        <p>The weapons control computer tracked time with an internal clock that counted tenths of a second as a whole number. To calculate where a Scud would appear next, the system had to convert that count into a real number with a decimal fraction. Its registers held only 24 bits, too few to represent that conversion exactly. Every conversion introduced a tiny error, about 0.0034 seconds per hour of continuous operation. The error accumulated the longer the system ran. At 8 hours it shifted the radar's tracking window by about 55 meters. At 20 hours, the target could fall completely outside that window. At 100 hours, the shift reached 687 meters, far past the missile's effective range to intercept anything.</p>
+
+        <p>On February 11, Israeli forces reported a measurable tracking error after 8 hours of continuous running. The Army analyzed that data, confirmed the drift, and shipped a software patch on February 16 that compensated for it. On February 21, the Patriot Project Office sent a message to every unit warning that "very long run times" could shift the tracking window and cause a missed target. The message did not say how long was too long. Army officials later told investigators they assumed no unit would run a battery continuously for that many hours, so they did not think a specific number was necessary.</p>
+
+        <p>That assumption was wrong, and it was not an engineering limit. It was a guess about human behavior, substituted for a number the Army already had sitting in its own analysis. Alpha Battery at Dhahran had been running continuously for more than 100 hours, five times past the point where the GAO's own later report shows the target could fall out of the tracking window entirely. The battery did not fire. The Scud hit the barracks. The patched software, already a week old and sitting in a supply pipeline, reached Dhahran on February 26, one day after the attack it would have prevented.</p>
+
+        <p>There was also a zero-cost fix that needed no new code at all. Rebooting the system reset its clock to zero and took 60 to 90 seconds. Any crew could have done it every few hours with no patch, no shipment, no delay. Nobody made that mandatory either, for the same reason: the Army had a precise, measured threshold and chose to communicate it as a vague caution rather than an instruction with a number attached.</p>
+
+        <p>The standard version of this story treats it as a story about a software bug, with the moral being that engineers should test edge cases. That is true and also beside the point. The Army had already found the edge case, tested it, and quantified it to the second before anyone died. The failure was downstream of that, in the translation from a measured fact into an instruction nobody could act on. A warning that says a hazard exists without saying when it becomes real does not reduce risk. It only gives the sender something to point to afterward. The Army had the number. It chose the adjective. That choice, not the 24-bit register, is the part worth being angry about.</p>
+
+        <p><em>Sources: US General Accounting Office, "Patriot Missile Defense: Software Problem Led to System Failure at Dhahran, Saudi Arabia," GAO/IMTEC-92-26, February 4, 1992; contemporaneous Patriot Project Office communications cited in that report.</em></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>Second Order. Independent notes, public sources only.</p>
+    </footer>
+  </div>
+</body>
+</html>
