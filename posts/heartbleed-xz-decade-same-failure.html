@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heartbleed was supposed to fix this. Ten years later, it happened again. Second Order</title>
+  <meta name="description" content="Heartbleed in 2014 exposed a lone, unpaid OpenSSL maintainer running software that secured most of the web. The industry's fix was a grant to that one project. In 2024 the same failure showed up in xz-utils, and an accident caught it, not the fix.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <h1><a href="../index.html">Second Order</a></h1>
+      <p class="tagline">How systems behave under pressure, versus how they say they behave.</p>
+    </header>
+
+    <main>
+      <a class="back-link" href="../index.html">&larr; All posts</a>
+
+      <article class="post">
+        <h1>Heartbleed was supposed to fix this. Ten years later, it happened again</h1>
+        <p class="post-meta">October 20, 2026</p>
+
+        <p>The industry did not fix the problem Heartbleed exposed. It fixed one instance of it, gave itself a decade of credit, and left the underlying model untouched. Ten years later the same failure showed up in a different library, run by a different volunteer, and the thing that caught it was luck, not any of the machinery built after 2014.</p>
+
+        <p>Before Heartbleed, OpenSSL secured roughly two-thirds of the web's encrypted traffic. It ran on donations of about $2,000 a year. One person, Stephen Henson, worked on it full time, for around $20,000 a year, backed by three volunteers. In April 2014, Google's Neel Mehta and a Finnish firm called Codenomicon separately found a memory bug in OpenSSL's heartbeat extension. It had shipped two years earlier. It let an attacker read up to 64 kilobytes of a server's working memory, often including private keys and passwords, from any machine running the affected versions. CVE-2014-0160 became Heartbleed.</p>
+
+        <p>The response was fast and specific. Within days, the Linux Foundation stood up the Core Infrastructure Initiative. Thirteen companies pledged $100,000 a year each. OpenSSL got funded developers and outside security audits. The story the industry told itself afterward was simple: critical infrastructure had been running on volunteer labor, nobody noticed until it broke, and now there was money to make sure it wouldn't happen again. That story was true about OpenSSL. It was never true about the rest of the stack.</p>
+
+        <p>xz-utils is a compression library. Most Linux systems use it, and on systemd-based distributions it gets pulled into the SSH server through a dependency chain most administrators have never looked at. For over a decade it had one maintainer, Lasse Collin, working unpaid, in his spare time. In 2022, after months of complaints from accounts that turned out to be sockpuppets pressuring him over slow release cycles, Collin wrote on the mailing list: "I haven't lost interest but my ability to care has been limited. It's also good to keep in mind that this is an unpaid hobby project." Weeks later he gave commit access to one of the accounts that had been helping him, using the name Jia Tan.</p>
+
+        <p>Jia Tan had been submitting real, useful patches since 2021. The contributions were not the point. The two years of credibility were. By January 2023 Jia Tan had release authority. In February and March 2024, two releases of xz-utils shipped with a backdoor, hidden not in the public source code but assembled during the build process from disguised test files in the release tarball. It hooked the SSH authentication routine and gave the holder of one specific private key unauthenticated remote code execution on affected systems. It is the most patient and carefully engineered supply-chain attack on open source ever documented.</p>
+
+        <p>It was caught by accident. On March 28, 2024, a Microsoft engineer named Andres Freund was benchmarking Postgres and noticed SSH logins taking about half a second longer than normal. He chased the half second instead of ignoring it, traced it to liblzma, and posted the finding the next day. Distributions rolled back within hours. The backdoored versions had not yet reached Debian stable or Ubuntu LTS. By most estimates they were a few weeks away.</p>
+
+        <p>Run the comparison straight. Both failures came from a single unpaid or underpaid person maintaining a piece of software that half the internet quietly depends on. Both involved software that looked fine on inspection because nobody with the time or mandate was inspecting it. The 2014 fix gave money and staff to OpenSSL specifically. It did not change the economics for the thousands of other libraries sitting one burned-out maintainer away from the same exposure. xz-utils was never on anyone's funded list. Ten years of institutional attention to open-source security produced audits, foundations, and a criticality-scoring system, and none of it caught the backdoor. An engineer's annoyance at a half-second delay did.</p>
+
+        <p>The industry's actual security control for critical open-source infrastructure is still a curious person noticing something slightly wrong before it matters. Every initiative built since 2014 sits on top of that fact instead of replacing it. The next maintainer running something nobody has heard of, for free, exhausted, is one patient attacker away from the same outcome. There is no reason to expect the next engineer to notice in time.</p>
+
+        <p><em>Sources: Wikipedia's Heartbleed and Core Infrastructure Initiative entries, citing contemporaneous reporting and the OpenSSL Software Foundation's own statements; Andres Freund's original disclosure to the oss-security mailing list, March 29, 2024 (openwall.com/lists/oss-security/2024/03/29); the xz-utils mailing list archive, including Lasse Collin's June 2022 message; and the OpenSSF/OpenJS Foundations' April 15, 2024 joint advisory on social-engineering takeovers of open-source projects.</em></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>Second Order. Independent notes, public sources only.</p>
+    </footer>
+  </div>
+</body>
+</html>
