@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>London Ambulance, 1992: the system didn't need to be good. It needed the paper not to be gone. Second Order</title>
+  <meta name="description" content="In October 1992 the London Ambulance Service switched its whole dispatch operation to a new computer system in one go, and removed the paper backup on the same morning. The system was never finished. The fallback was the real casualty.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <h1><a href="../index.html">Second Order</a></h1>
+      <p class="tagline">How systems behave under pressure, versus how they say they behave.</p>
+    </header>
+
+    <main>
+      <a class="back-link" href="../index.html">&larr; All posts</a>
+
+      <article class="post">
+        <h1>London Ambulance, 1992: the system didn't need to be good. It needed the paper not to be gone</h1>
+        <p class="post-meta">October 27, 2026</p>
+
+        <p>A new system's first day should never be the day you destroy the old one. The London Ambulance Service broke that rule on 26 October 1992 and spent the next nine days running an emergency dispatch service for eight million people on a system that could not tell where its ambulances were. The bug that eventually crashed it outright was almost incidental. The decision to remove the fallback before the replacement had proven itself is the actual story.</p>
+
+        <p>The London Ambulance Service needed a computer-aided dispatch system to replace a manual process built on paper slips, a wall-mounted status board, and radio calls. The contract went to Systems Options, a small software house with no track record on a system of this kind, which won it with the lowest bid: £35,000, against a project that would eventually cost £1.5 million. The service set itself a deadline of 8 January 1992 for full implementation. The deadline slipped. The software kept failing. By October, staff in Central Ambulance Control had logged over 1,500 Problem Incident Reports, 81 of them still open, some rated as capable of making the system unusable.</p>
+
+        <p>None of that stopped the go-live. On the morning of 26 October, LAS switched the entire control room to the new system in one move. It removed the printers that had been quietly backstopping the half-working system for months. It removed the paper activation boards crews used to track status and location by hand. Staff were moved to new seats, away from the colleagues they normally solved problems with. The system that replaced all of this had never been tested at full load, and its failover to a second server had never been tested at all.</p>
+
+        <p>The failure that followed wasn't a crash. It was slower and worse. The system needed near-perfect, timely status data from every ambulance to allocate resources correctly. It did not get that, because crews were undertrained on the new terminals and the radio links were unreliable. Every late or missing update generated an exception message requiring manual handling. Exceptions piled up faster than staff could clear them. The system responded to its own backlog by sending multiple ambulances to the same call and losing track of ones already en route. Callers whose ambulance never arrived rang back, adding more calls to a system already drowning in them. Average call-to-answer time rose past 10 minutes, hitting 15 at points. London's paper went looking for bodies and found a press narrative instead: newspapers and a union claimed the chaos had caused around 20 deaths. The official inquiry checked coroners' reports going back a year and found none that could be attributed to a late ambulance. The system had failed badly. It had not, as far as the evidence showed, killed anyone. Both things were true at once, and only one of them made the front page.</p>
+
+        <p>By 28 October, LAS reverted to its semi-manual process, the one with the paper still in it, because the paper was the thing that had kept the previous eighteen months of a half-working system survivable. On 4 November, with load reduced and a calmer control room, a single line of code added in a fix three weeks earlier caused the system to leak memory until it locked solid. Nothing could restart it without a manual reset. The standby server, which should have taken over automatically, did not, because the printers temporarily reinstalled after the October failure had been wired into it in a way nobody had tested either. LAS went back to voice and paper completely. The 1993 inquiry report said flatly that management had made "every mistake in the book."</p>
+
+        <p>The specific memory bug was unremarkable. Software has bugs; a system this size will always have one nobody caught. What made 4 November dangerous was that the designed response to a bug, the automatic handover to backup hardware, had quietly stopped being real weeks before anyone needed it. What made 26 October dangerous was that the fallback below that, paper and a human with a pen, had been deliberately taken away on the same morning the untested replacement went live. Redundancy that nobody exercises under real load is not redundancy. It is an assumption wearing a label.</p>
+
+        <p>The lesson procurement teams drew from this afterward was about phased rollouts and realistic timelines, and both are fine advice nobody follows under deadline pressure anyway. The sharper point is about sequencing, not planning. If a replacement system is going to fail in ways you haven't found yet, and it will, the question is never whether you tested it enough. It's whether you can still get back to the thing that worked before, on the same day it fails. LAS answered that question by setting the paper on fire before the terminal screen had proven it could hold the load. That is not a testing failure. It is a choice, made by people who wanted the new system to be finished more than they wanted a working ambulance service that morning.</p>
+
+        <p><em>Sources: the 1993 Report of the Inquiry Team into the London Ambulance Service (Communications and Computer-Aided Despatch System), as hosted by the University of Glasgow Department of Computing Science; New Scientist, "Pressurised managers blamed for ambulance failure," 6 March 1993; British Medical Journal news report on the inquiry findings, 1993; Beynon-Davies, "Information systems 'failure': the case of the London Ambulance Service's computer aided despatch system," European Journal of Information Systems, 1995.</em></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>Second Order. Independent notes, public sources only.</p>
+    </footer>
+  </div>
+</body>
+</html>
