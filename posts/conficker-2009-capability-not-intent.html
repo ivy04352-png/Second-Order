@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conficker, 2009: nothing happened, and that is not the same as being safe. Second Order</title>
+  <meta name="description" content="Conficker infected up to 15 million machines and triggered a global industry task force bracing for an April 1 2009 attack. The attack never came. The usual reading is that the defense worked. The record says the defense failed on its own terms, and the worm's owners simply lost their nerve.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <h1><a href="../index.html">Second Order</a></h1>
+      <p class="tagline">How systems behave under pressure, versus how they say they behave.</p>
+    </header>
+
+    <main>
+      <a class="back-link" href="../index.html">&larr; All posts</a>
+
+      <article class="post">
+        <h1>Conficker, 2009: nothing happened, and that is not the same as being safe</h1>
+        <p class="post-meta">October 29, 2026</p>
+
+        <p>In early 2009 a worm called Conficker sat on up to 15 million Windows machines, and the security industry built an emergency coalition to stop it before an April 1 deadline buried in its own code. April 1 came and went. Nothing visible happened. The story the industry tells about that day is that the defense worked. The record does not support that story. The worm's update mechanism worked exactly as designed, slipped past the defense, and delivered its payload a week later. What actually stopped Conficker from doing real damage was the people running it losing their nerve, not anyone's countermeasures.</p>
+
+        <p>Conficker first appeared in November 2008, exploiting a Windows flaw Microsoft had already patched two weeks earlier. That gap was enough. By January 2009 estimates ranged from 9 to 15 million infected machines across 190 countries, including French Navy aircraft systems, Royal Navy ships, the UK Ministry of Defence, and the German military. Later variants added a second trick: every infected machine generated a list of pseudo-random domain names each day and checked them for instructions. Variant A used 250 domains. Variant C used 50,000. Block the domains fast enough, and the worm has no way to receive new orders.</p>
+
+        <p>So that is what the industry did. On 12 February 2009, Microsoft announced an alliance that came to be called the Conficker Working Group: Microsoft, ICANN, Verisign, Neustar, Symantec, F-Secure, Georgia Tech researchers, and a dozen others. Microsoft put up a $250,000 bounty. Domain registries in Chile, Canada, Panama, Switzerland, and Poland started locking down every domain name Conficker's generator could produce, months in advance. By mid-April every domain the original variant could reach had been locked or pre-registered. It was a genuinely impressive, genuinely coordinated piece of global infrastructure defense, built in about two months.</p>
+
+        <p>It also did not work. Variant D, released in early March, dropped the domain scheme as its primary channel and switched to peer-to-peer: infected machines found each other directly over the open internet and passed instructions from host to host. No domains to register, no registry to lean on. On 1 April the feared trigger date arrived, the P2P channel activated as scheduled, and six days later variant E used it to pull down a real payload. Headlines had spent weeks describing a possible "cyber 9/11." What came through the pipe was a spambot called Waledac and a piece of scareware called SpyProtect 2009, designed to frighten users into paying for fake antivirus software. Run a global coalition, lock down fifty thousand domains a day, and the thing you actually get hit with is a spam operation and a con that existed before anyone had heard of Conficker.</p>
+
+        <p>Researchers who later reverse-engineered the worm, writing in a classified peer-reviewed US government journal in 2015, concluded the operators were Ukrainian criminals who had not set out to build the largest botnet since SQL Slammer. They built it, watched it spread 10 to 100 times further than planned, and realized that touching it again, for anything beyond petty fraud, would draw more law enforcement attention than any payout was worth. So they mostly didn't. No sabotage, no mass data theft, no coordinated attack on anything. The botnet that had NATO navies, the UK Parliament, and Manchester City Council's IT department quarantining systems spent most of its life being used for almost nothing, by choice of the people who owned it.</p>
+
+        <p>That is a very different story from "the task force stopped it," and the difference matters. A coalition that blocks the channel an attacker is no longer using has not demonstrated anything about its ability to stop the channel an attacker is using. The industry's own account of April 1 skips past the fact that the P2P mechanism went live on schedule and worked. What should have been the headline, that a global defensive effort failed to interdict a live botnet update, got replaced by a better story, where readiness gets the credit for an outcome actually produced by the restraint of the people holding the trigger.</p>
+
+        <p>None of this means the Working Group was pointless. Locking the domains was the correct move against the threat as understood at the time, and it would have mattered against a less cautious operator. The point is narrower: when a predicted attack does not happen, check whether your defense beat the attacker or whether the attacker beat itself. Conficker's owners could have run a vastly more damaging operation than spam and scareware, on infrastructure that included military networks, and chose not to. The industry should be far less comfortable crediting a coalition for an outcome that actually came down to someone else's judgment call.</p>
+
+        <p><em>Sources: Wikipedia's Conficker entry, compiling contemporaneous Microsoft, Symantec, and registry advisories and the ICANN domain-lock timeline; Mark Bowden, "The Enemy Within," The Atlantic, June 2010; New York Times reporting by John Markoff, January and August 2009, and the Times' 29 June 2019 follow-up citing Porras, Yegneswaran, and Saidi's 2015 Journal of Sensitive Cyber Research and Engineering paper on the worm's Ukrainian origin.</em></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>Second Order. Independent notes, public sources only.</p>
+    </footer>
+  </div>
+</body>
+</html>
