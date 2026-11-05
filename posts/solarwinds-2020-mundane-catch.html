@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SolarWinds, 2020: the most sophisticated hack in years got caught by a login alert. Second Order</title>
+  <meta name="description" content="The SolarWinds breach ran undetected inside thousands of networks for roughly a year, built by operators good enough to forge trust inside signed software. It got found because one of them registered a second phone on a stolen account. The sophistication and the detection were two unrelated stories.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <h1><a href="../index.html">Second Order</a></h1>
+      <p class="tagline">How systems behave under pressure, versus how they say they behave.</p>
+    </header>
+
+    <main>
+      <a class="back-link" href="../index.html">&larr; All posts</a>
+
+      <article class="post">
+        <h1>SolarWinds, 2020: the most sophisticated hack in years got caught by a login alert</h1>
+        <p class="post-meta">November 5, 2026</p>
+
+        <p>In December 2020, the cybersecurity firm FireEye announced it had found a backdoor in SolarWinds' Orion network-monitoring software, installed in a hacked update and running inside roughly 18,000 customer networks, including multiple US federal agencies. The operation behind it, later attributed to Russia's SVR, had sat inside SolarWinds' build system since September 2019 and had been live in target networks since the spring of 2020. Every detail of the attack got reported as a triumph of tradecraft. The detection was not. FireEye found it because someone used stolen credentials to register a second phone on an employee's account, and the account security system flagged it the way it flags a password reset from a new city. Call this what it is: the hackers were caught by a hygiene control, not by anyone's threat-hunting genius.</p>
+
+        <p>The attack itself earned the praise. The operators got into SolarWinds' build pipeline and waited for developers to start a build, then swapped in a malicious file at the last possible moment before the code got signed and shipped, so the audit that ran just before signing saw nothing wrong. The resulting malware stayed dormant for twelve to fourteen days after installation before it tried to contact a command server, and even then it mimicked Orion's own legitimate network traffic. Once inside a target, the operators used that foothold to hunt for SAML signing certificates, which let them forge authentication tokens and move into cloud services like Microsoft 365 without tripping a single password check. CrowdStrike's later analysis found the malicious code had been slipped out of the build environment roughly six months before anyone noticed it was there. This was not smash-and-grab malware. It was built by people who understood exactly how software supply chains, build audits, and federated identity trust each other, and who used that understanding to stay invisible.</p>
+
+        <p>None of that got the operation caught. FireEye's own account, confirmed later by CEO Kevin Mandia, is that a "severity zero" alert went out when a new device enrolled itself in the company's multi-factor authentication system against an employee's account. An analyst looked at it, found the employee hadn't added any device, and pulled the thread. That thread led back through stolen VPN credentials to the Orion backdoor. The operators who had spent a year building a supply-chain compromise sophisticated enough to beat code-signing and SAML trust got undone by the digital equivalent of a bank noticing a new ATM card request on an account. It is the same category of control sold to small businesses as basic account hygiene, not the product of specialized threat-hunting against nation-state actors.</p>
+
+        <p>This matters because it breaks a comforting assumption built into how the security industry sells itself: that sophistication in attack gets matched by sophistication in detection, that a nation-state-grade intrusion needs a nation-state-grade sensor to find it. SolarWinds sat undiscovered for about a year despite running inside companies whose entire business is intrusion detection. CrowdStrike, Microsoft, and FireEye were all compromised themselves and did not catch it from the inside. What caught it was a basic identity-hygiene alert doing exactly what it was built to do, on a system the operators needed to touch in order to keep moving. MFA helped here, but that's not the real point. Sophisticated attackers mostly get caught by boring checkpoints, not by sophisticated defenses. Every network, however well-protected, still runs on a handful of ordinary plumbing: logins, certificates, build pipelines. Attackers have to cross that plumbing to do anything useful. Spend on detecting the exotic threat if you like. Just don't talk yourself out of the login alert.</p>
+
+        <p>The industry's own retrospective language leaned hard on "unprecedented sophistication," which is true and also beside the point. Sophistication bought the operators a year of silent access across thousands of networks. It did not buy them immunity from an account-security system doing its most boring job. If you're deciding where next year's security budget goes, the honest answer from this case is: fund the boring control that actually works, not the one that photographs well in the vendor's pitch deck.</p>
+
+        <p><em>Sources: Wikipedia, "2020 United States federal government data breach"; NPR, "A 'Worst Nightmare' Cyberattack: The Untold Story Of The SolarWinds Hack," April 2021; Dark Reading, "FireEye's Mandia: 'Severity-Zero Alert' Led to Discovery of SolarWinds Attack"; The Register, "SolarWinds malware was sneaked out of the firm's Orion build environment 6 months before anyone realised it was there," January 2021.</em></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>Second Order. Independent notes, public sources only.</p>
+    </footer>
+  </div>
+</body>
+</html>
