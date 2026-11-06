@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knight Capital, 2012: the $460 million bug that nobody could switch off. Second Order</title>
+  <meta name="description" content="Knight Capital lost $460 million in 45 minutes because dead code woke up on one trading server. The bug was forgivable. The real failure was that Knight had no way to stop its own system once it started misbehaving.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <h1><a href="../index.html">Second Order</a></h1>
+      <p class="tagline">How systems behave under pressure, versus how they say they behave.</p>
+    </header>
+
+    <main>
+      <a class="back-link" href="../index.html">&larr; All posts</a>
+
+      <article class="post">
+        <h1>Knight Capital, 2012: the $460 million bug that nobody could switch off</h1>
+        <p class="post-meta">November 6, 2026</p>
+
+        <p>On the morning of August 1, 2012, one of Knight Capital's trading servers started executing a function called Power Peg. Knight had stopped using Power Peg in 2003. The function should not have run at all. It ran anyway, for 45 minutes, and it cost the firm $460 million and effectively ended it as an independent company. Most retellings of this story blame the bug: old code left on a server, a technician who missed one machine during a software rollout. That is the easy, comfortable reading. The real failure sat one level up. Knight had no way to stop SMARS, its order-routing system, once it started sending bad orders. Nobody at the firm had built a brake. They had alerts, limits, and a compliance binder. They did not have an off switch.</p>
+
+        <p>The mechanics are almost funny, in the way engineering disasters often are once the money stops mattering to you personally. Knight was rolling out new code to support a NYSE retail trading program. The new code was meant to replace Power Peg inside SMARS, an automated router that splits large orders into smaller "child" orders and sends them to the market. A technician pushed the new code to seven of SMARS's eight servers and missed the eighth. Nobody reviewed the deployment, because Knight had no written procedure requiring a second person to check. On the eighth server, the old Power Peg code was still there, and the new rollout repurposed a signal flag that happened to also be the flag that used to activate Power Peg. When live orders hit that server on August 1, Power Peg woke up. A 2005 change had also broken the part of Power Peg that tracked how many shares had already been filled, so the dead code didn't know when to stop. It just kept sending orders, over and over, for every incoming order that touched that server.</p>
+
+        <p>By the time anyone cut power to the thing, SMARS had generated more than 4 million trades across 154 stocks, totaling 397 million shares, according to the SEC's order against Knight. The firm ended up holding a $3.5 billion long position in some stocks and a $3.15 billion short position in others, neither one intentional, both acquired in under an hour. Knight had an automated email system that flagged the problem before the market even opened: 97 messages referencing "Power Peg disabled" landed in employee inboxes starting at 8:01am, over an hour before trading started. Nobody read them. They weren't built as alerts, they were just logs that happened to get emailed, and nobody at Knight treated them as anything worth checking before the market opened.</p>
+
+        <p>Once trading started and the problem became obvious, Knight's response made things worse, not better. Staff tried pulling the new code off the seven servers that had it correctly installed, on the theory that reverting would fix things. It didn't. It activated the same dead Power Peg function on those servers too, because the flag problem was identical everywhere the old code still physically existed. Knight had a risk monitoring tool called PMON that showed senior staff a large, unexplained position building in real time. PMON wasn't connected to anything that could stop an order. It just displayed a number. People watched the number grow and had no lever to pull. That is the detail that should bother anyone who thinks of "monitoring" as a form of control. A dashboard that only displays is not a safety system, it's a spectator sport.</p>
+
+        <p>Financial firms love to talk about risk controls, and Knight genuinely had some: a price-limit check, position caps on individual trading desks, a compliance department that had signed off on its own procedures under SEC Rule 15c3-5 the year before. All of it sat upstream of SMARS or downstream of the damage. None of it could reach into the order router mid-crisis and say stop. The SEC's post-mortem makes the same point more dryly: Knight had controls to prevent erroneous orders from entering its systems, and controls to measure positions after the fact, and nothing in between to halt a system once it was already firing. That gap is the actual lesson, and it generalizes past trading firms. An automated system needs three things to be safe: it has to do the right thing, it has to tell someone when it's not doing the right thing, and someone has to be able to turn it off without turning off seven other things by accident. Knight had the first two, barely, and skipped the third entirely.</p>
+
+        <p>The $7.5 million near-miss Knight had suffered less than a year earlier, when a disaster-recovery test accidentally fed live trading with test data, should have been the warning. Knight's fix for that incident was narrow: stop that one system from quoting outside market hours. It never asked the bigger question, whether the firm had any general way to kill a misbehaving system fast. Companies are very good at patching the specific hole that just bit them and very bad at asking what else that hole implies. Knight patched the hole. Seven months later, a different hole in the same house flooded the basement.</p>
+
+        <p>The industry reaction after August 1 was more monitoring, more pre-trade risk checks, more compliance paperwork, which is the same reflex that produced PMON in the first place. Watching harder was never the problem. Knight could already see the position growing in real time and still couldn't stop it. Any system fast enough to be useful is fast enough to be dangerous, and the only real defense against that is a kill switch built in from day one, tested like it matters, not bolted on after the fact as a compliance checkbox. Most firms running automated systems today still don't have one they'd trust under pressure. They have dashboards.</p>
+
+        <p><em>Sources: U.S. Securities and Exchange Commission, "In the Matter of Knight Capital Americas LLC," Release No. 70694 / File No. 3-15570, October 16, 2013; contemporaneous reporting from the New York Times DealBook and PRMIA case study on the Knight Capital algorithmic trading failure.</em></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>Second Order. Independent notes, public sources only.</p>
+    </footer>
+  </div>
+</body>
+</html>
