@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCAS, 2018-2019: the single sensor wasn't the failure. The paperwork that approved it was. Second Order</title>
+  <meta name="description" content="Boeing built MCAS to run on one angle-of-attack sensor, and investigators treat that as the core defect. It wasn't. The defect was a hazard rating on a form, filled in early and never revisited, that made redundancy optional.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <h1><a href="../index.html">Second Order</a></h1>
+      <p class="tagline">How systems behave under pressure, versus how they say they behave.</p>
+    </header>
+
+    <main>
+      <a class="back-link" href="../index.html">&larr; All posts</a>
+
+      <article class="post">
+        <h1>MCAS, 2018-2019: the single sensor wasn't the failure. The paperwork that approved it was</h1>
+        <p class="post-meta">November 8, 2026</p>
+
+        <p>Everyone who has read about the 737 MAX crashes knows the headline detail: MCAS, the flight control system that pushed the plane's nose down, trusted a single angle-of-attack sensor. One bad sensor, one unrecoverable dive, twice, 346 people dead across Lion Air flight 610 and Ethiopian Airlines flight 302. The sensor gets treated as the design flaw. It wasn't. A sensor is just a part. The actual decision that killed people was a line in a hazard classification document, filled in years earlier, that rated an MCAS malfunction as "Major" instead of "Catastrophic." That one word is why MCAS never got a second sensor. Redundancy in aviation isn't a default you add because it's good practice. It's a cost you only pay once a hazard table tells you that you must.</p>
+
+        <p>Under FAA rule 14 CFR 25.1309, a manufacturer doesn't just build a system and test it. It classifies every failure mode by how bad the outcome would be: minor, major, hazardous, or catastrophic. The classification sets the required failure probability. A catastrophic failure must be "extremely improbable," which in practice forces redundant inputs, because one sensor can't meet that bar alone. A major failure just needs to be unlikely enough that a single point of failure is tolerable. Boeing's engineers ran MCAS's uncommanded activation through this process and rated it major. Once that box was checked, a single AOA sensor was compliant. Nobody had to add a second one. The DOT Inspector General's 2020 report states this plainly: Boeing's safety analysis did not assess MCAS failure as catastrophic, so the system was designed to rely on one sensor instead of including redundancy that would have cut the risk.</p>
+
+        <p>The comparison that makes this damning is one Boeing didn't have to go looking for. It already builds a system called MCAS on the KC-46 Air Force tanker. Same manufacturer, same function name, same era. The KC-46 version reads two angle-of-attack sensors and compares them before acting. The 737 MAX version read one. Boeing has said publicly the two systems share a name and little else, different airframe, different avionics, different context. That's true and it dodges the point. The company that knew how to build a two-sensor comparator put it on a military refueling tanker and left it off a commercial airliner carrying passengers, because the commercial version's paperwork said it didn't need one. The engineering capability existed in-house the whole time. The classification, not the capability, decided what shipped.</p>
+
+        <p>This is where the "move fast, cut corners for profit" reading of the MAX story gets the mechanism wrong, even though the conclusion feels right. Nobody at Boeing sat in a room and said "let's accept more crash risk to save money on a sensor." What happened is duller and more durable as a failure mode: a classification exercise, done early, by people reasoning from a hazard model built for older 737 flight characteristics, got treated afterward as settled fact. Boeing's internal review of MCAS changed the system's authority and activation logic multiple times during flight testing without reopening the hazard classification that justified the single sensor. The Seattle Times' reporting on internal Boeing documents found engineers judged the probability of a hazardous MCAS malfunction "virtually inconceivable" based on the original, narrower version of the system. MCAS grew more powerful, moved faster, and ran on more conditions as testing went on. The paperwork that justified one sensor never grew with it. Once a document says a risk is Major, everyone downstream treats that as upstream work already done, not something they're entitled to question.</p>
+
+        <p>The industry's post-crash fix reinforced this instead of challenging it. The FAA's return-to-service work, finished in 2020, had Boeing rewrite MCAS to compare both AOA sensors and disable itself on a mismatch. That's the correct fix for the sensor problem. It leaves the actual mechanism untouched: a safety case built once, early, by engineers under schedule pressure, then relied on by everyone after them as though a hazard rating were a fact about the world rather than a judgment call made at a point in time with the information available then. Nothing in the fix changes who gets to revisit a classification, or when, or whether a changing design automatically forces a new look. The rule that let a single sensor through is still the rule.</p>
+
+        <p>Redundancy gets talked about as an engineering virtue, something you'd obviously want more of. It isn't free, and nobody builds it in by default. It gets built only when a classification step forces someone to pay for it, and that step is a judgment call made early, under less scrutiny than the hardware it's rating, by people who aren't required to come back and check their own homework when the design changes under them. The sensor was never the single point of failure. The form was.</p>
+
+        <p><em>Sources: U.S. Department of Transportation Office of Inspector General, "Timeline of Activities Leading to the Certification of the Boeing 737 MAX 8 Aircraft," Report No. AV2020037, June 29, 2020; Federal Aviation Administration, "Summary of the FAA's Review of the Boeing 737 MAX," 2022; The Seattle Times, "The inside story of MCAS: How Boeing's 737 MAX system gained so much power, and why engineers failed to rein it in."</em></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>Second Order. Independent notes, public sources only.</p>
+    </footer>
+  </div>
+</body>
+</html>
