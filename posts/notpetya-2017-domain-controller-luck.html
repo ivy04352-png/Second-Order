@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NotPetya, 2017: Maersk's recovery depended on luck, not design | Second Order</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header>
+<nav>
+<a href="../index.html">Second Order</a>
+</nav>
+</header>
+<main>
+<article>
+<h1>NotPetya, 2017: Maersk's recovery depended on luck, not design</h1>
+<p class="meta">November 10, 2026</p>
+
+<p>In June 2017, a Russian military intelligence worm called NotPetya hit A.P. Moller-Maersk, the world's largest shipping company. Within half an hour, Maersk's network was dead. Employees ran down hallways telling colleagues to switch off their machines before the malware could reach them. It was already too late for most of them.</p>
+
+<p>Maersk had redundancy. It had 150 domain controllers, the servers that authenticate every user and device on a Windows network. The whole point of having 150 of them, spread across the business, is that losing a few shouldn't matter. That is the textbook argument for redundancy: no single point of failure.</p>
+
+<p>Here is the part people skip when they tell this story as a cautionary tale about patching Windows. The redundancy did not work. It failed as a single unit, because all 150 domain controllers synced their data with each other continuously. That is not redundancy. That is one system wearing 150 coats. When NotPetya reached the domain controllers, it did not need to hit all 150. It corrupted the shared data they all held in common, and the sync did the rest.</p>
+
+<p>Maersk's IT staff worked out the real problem fast: if they could not recover a domain controller, they could not recover anything. Ships, ports, customs paperwork, billing, all of it depended on that layer. So they called data centers around the world, hunting for a surviving copy. They found one. A single domain controller in a remote office in Ghana had been knocked offline by a power cut before NotPetya struck, and it had stayed disconnected from the network ever since. It never got the chance to sync the corrupted data, because nobody had got round to fixing the power problem.</p>
+
+<p>That machine is the entire reason Maersk rebuilt its network in ten days instead of losing the company. Not a backup plan. Not a disaster recovery runbook. A blackout in Ghana that an IT department would normally have logged as a problem to fix, not a stroke of luck to thank.</p>
+
+<p>This is the actual lesson, and it is not the one usually drawn. Commentary on NotPetya tends to land on unpatched Windows 7 machines and the danger of nation-state cyberweapons loose in civilian networks, both true, both beside the point that matters for anyone designing systems. Maersk's failure was architectural, not operational. A system that keeps 150 synchronized copies of the same data has not distributed its risk. It has distributed its single point of failure to 150 locations, so that one compromise reaches all of them at once. The company had spent money and effort building something that looked like resilience on an org chart and behaved like a single fragile system the moment it was tested.</p>
+
+<p>Real redundancy requires that backups fail independently of the thing they back up. An air-gapped copy. A deliberately stale snapshot. A system that is not listening to the others. Maersk had none of that by design. It had one by accident, in Ghana, because a generator or a grid connection failed at the right moment for the wrong reason.</p>
+
+<p>Most organizations that claim redundancy have built Maersk's domain controllers: multiple instances of a system that all update from each other in real time, which means they share fate as completely as a single server would. The sync that makes the system convenient in normal operation is the same sync that makes it worthless in a crisis. If your backup can hear your primary, it is not a backup. It is a mirror, and mirrors break together.</p>
+
+</article>
+</main>
+<footer>
+<p><a href="../index.html">&larr; Back to all posts</a></p>
+</footer>
+</body>
+</html>
