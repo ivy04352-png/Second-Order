@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Three Mile Island, 1979: the light showed the order, not the result | Second Order</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header>
+<nav>
+<a href="../index.html">Second Order</a>
+</nav>
+</header>
+<main>
+<article>
+<h1>Three Mile Island, 1979: the light showed the order, not the result</h1>
+<p class="meta">November 12, 2026</p>
+
+<p>Most control-room indicators do not measure the thing you care about. They measure the order that was sent to the thing you care about, and then they assume the order was obeyed. That gap is what destroyed the core of Three Mile Island Unit 2 on March 28, 1979, and it is a gap that still exists in most complex systems today, under a different name.</p>
+
+<p>The plant's pilot-operated relief valve, the PORV, opened automatically that morning to vent pressure after a feedwater failure shut the reactor down. It was supposed to close again once pressure dropped. It stuck open instead, and coolant poured out of the primary system for over two hours while operators believed everything was fine.</p>
+
+<p>They believed it because of one light on the control panel. The light was wired to the solenoid that commanded the valve to close, not to the valve itself. When the control signal went out, the light went dark, and the operators read a dark light as "valve closed." The valve was still wide open. The light had done its job perfectly. Its job was just the wrong job.</p>
+
+<p>Here is the detail that turns this from bad luck into a design failure with a paper trail: that light existed because the exact same valve had already stuck open during startup testing at the same plant, before the accident. Someone had already caught this failure mode once, and the fix they chose was to add an indicator. Nobody asked what the indicator actually measured. It measured intent, not outcome, and intent is cheap to fake and cheaper to be wrong about.</p>
+
+<p>The Kemeny Commission later found the same PORV design had failed eleven times before at other plants, nine of them stuck open exactly like this one. Eighteen months before Three Mile Island, the identical sequence happened at the Davis-Besse plant in Ohio, on the same manufacturer's reactor. The only difference is that Davis-Besse's operators caught it before it mattered. Nobody drew the industry-wide conclusion from either incident: an indicator that reports a command is not a safety instrument, it is a note to yourself that you sent an email.</p>
+
+<p>This is a recurring shape, not a one-off. A sensor or light that confirms "the system was told to do X" gets treated as confirmation that X happened, because building a sensor that checks the actual physical outcome is harder and more expensive than building one that checks the wire. Command-confirmation is a real engineering tool and it has its place, but it gets quietly substituted for state-confirmation whenever the second one is inconvenient, and nobody relabels the gauge to admit what changed.</p>
+
+<p>There was a second, independent instrument that could have exposed the lie faster: a temperature sensor downstream of the PORV that would read high if gas were still venting through it. It was not treated as a safety-grade reading, operators were not trained to use it, and it sat behind a seven-foot panel where nobody looked. A true measurement of the valve's actual state existed in the room the entire time. It lost to a fake one because the fake one was on the panel operators had been trained to watch.</p>
+
+<p>The usual version of this story blames operator error, and the operators did make mistakes under real pressure with bad training. But training people to read a flawed instrument correctly is still training them to trust a flawed instrument. The fix that actually matters is upstream of any operator: stop letting "we sent the command" stand in for "the command worked," and when a near-miss reveals that gap, close the gap instead of adding a light that papers over it.</p>
+
+</article>
+</main>
+<footer>
+<p><a href="../index.html">&larr; Back to all posts</a></p>
+</footer>
+</body>
+</html>
