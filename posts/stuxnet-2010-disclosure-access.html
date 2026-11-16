@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stuxnet, 2010: the official channel didn't work. A phone call did | Second Order</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header>
+<nav>
+<a href="../index.html">Second Order</a>
+</nav>
+</header>
+<main>
+<article>
+<h1>Stuxnet, 2010: the official channel didn't work. A phone call did</h1>
+<p class="meta">November 16, 2026</p>
+
+<p>Responsible disclosure has a process. You find a flaw, you tell the vendor quietly, the vendor fixes it, everyone avoids a public mess. The Stuxnet case shows what that process is worth when you are not already inside the right network of people. It is worth nothing. What worked was a personal favor, called in by someone the vendor already trusted.</p>
+
+<p>In May 2010, a small Belarusian antivirus company called VirusBlokAda got a support request from a customer in Iran. Computers were crashing and rebooting for no obvious reason. Sergey Ulasen, the engineer who caught the case, took the call in the middle of a wedding reception 400 kilometers from his office, because the customer who reported it happened to be a personal friend of his. He kept diagnosing it by phone through the weekend, then flew back to the office on Monday to dig in properly.</p>
+
+<p>What his team found was not a routine bug. It used a Windows zero-day to spread through USB drives, and its drivers carried valid digital signatures stolen from two real hardware companies, Realtek and later JMicron. That is not amateur work. VirusBlokAda did what the disclosure playbook says to do: they tried to reach Microsoft and Realtek directly, through normal channels, to report the stolen certificates and the zero-day before going public.</p>
+
+<p>Nobody answered. Ulasen said so plainly afterward: a small, unknown Belarusian AV firm trying to get the attention of Microsoft's security team through a general inquiry is a message that goes straight into a queue nobody is in a hurry to clear. He did not have a contact there. He did not have a name. He had an inbox.</p>
+
+<p>So he published. He posted technical details on the company's own site and on a security forum, wilderssecurity.com, in mid-June 2010. Brian Krebs picked it up and wrote about it. Researcher Frank Boldewin connected the malware to Siemens industrial control software, which is the detail that eventually pointed everyone toward Natanz. That public disclosure got attention, but it still did not get Microsoft on the phone. What did was Andreas Marx, head of the independent testing lab AV-TEST, who knew people inside Microsoft's security response center personally and made a call on VirusBlokAda's behalf. Only then did Microsoft start treating it as the active, signed, zero-day-carrying threat it was.</p>
+
+<p>Put the timeline next to itself. Direct, correct, responsible outreach to the vendor: ignored. Public disclosure to a security forum: got press, not a vendor response. A personal introduction from a well-connected third party: immediate action. The formal channel that disclosure policy assumes exists did not do the work. A favor did.</p>
+
+<p>This is not a story about Microsoft being slow, though it was. It is a story about who gets to use the official channel at all. "Report it responsibly" is advice that only functions for researchers who already have a name a vendor recognizes, or who know someone who does. Everyone else is filing a ticket into a system built to protect the vendor's time, not the reporter's finding. VirusBlokAda had found one of the most capable pieces of malware ever written, stolen code-signing certificates included, and it still took a favor between acquaintances to get a response. Disclosure policy doesn't need friendlier forms. It needs to admit that access, not merit, decides whose warning gets read.</p>
+
+</article>
+</main>
+<footer>
+<p><a href="../index.html">&larr; Back to all posts</a></p>
+</footer>
+</body>
+</html>
