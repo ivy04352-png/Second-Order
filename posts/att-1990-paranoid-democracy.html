@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AT&amp;T, 1990: the safety system was the outage - Second Order</title>
+  <meta name="description" content="A one-line bug took down AT&T's long-distance network for nine hours in 1990. The bug is not the interesting part. The network's self-healing logic was identical in all 114 switches, so the mechanism built to contain one failure spread it to all of them instead.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <h1><a href="../index.html">Second Order</a></h1>
+      <p class="tagline">How systems behave under pressure, versus how they say they behave.</p>
+    </header>
+
+    <main>
+      <a class="back-link" href="../index.html">&larr; All posts</a>
+
+      <article class="post">
+        <h1>AT&amp;T, 1990: the safety system was the outage</h1>
+        <p class="post-meta">November 19, 2026</p>
+
+        <p>On January 15, 1990, AT&amp;T's long-distance network lost half its calls for nine hours. Engineers found the cause fast: a one-line bug in a C program running on every one of AT&amp;T's 114 switches. The standard version of this story treats the bug as the villain. That is wrong. The bug was trivial and would have stayed trivial if it had lived on one switch. It became a nationwide outage because AT&amp;T had copied the exact same fault-detection logic onto all 114 machines. The thing that was supposed to contain failures spread them instead, and it did that precisely because it was identical everywhere. Uniform safety logic is not redundancy. It is one point of failure wearing a hundred and fourteen disguises.</p>
+
+        <p>The network ran on 4ESS switches linked by a signaling system called SS7. A switch handling heavy load would run a brief self-test, then reset itself and tell the network it was temporarily out of service. In December 1989, AT&amp;T pushed new software to all 114 switches to speed up message handling. The update carried a single defect: a misplaced <code>break</code> statement inside a nested <code>switch</code> and <code>if</code> block. Under a specific timing condition, two closely spaced status messages from a recovering switch, the code took the wrong branch and skipped straight to a line that overwrote live call data instead of processing the second message correctly.</p>
+
+        <p>Here is the part people skip. The switch that received the corrupted data had its own defense: it noticed the overwrite, assumed something was wrong with itself, and reset. That reset generated the exact same kind of back-to-back status messages that had just caused the problem. The next switch down the line hit the identical bug, for the identical reason, and reset too. AT&amp;T's engineers called this design "paranoid democracy": every switch watched its neighbors for signs of trouble and could take itself offline if something looked off. On January 15, the paranoia was justified every single time, and every single switch acted on it the same way, because every switch ran the same code. The failure did not need to spread by contagion. It was already present in all 114 locations at once, waiting for one trigger to activate it everywhere on the same afternoon.</p>
+
+        <p>AT&amp;T had, by its own account, tested the update carefully. That is not surprising and does not need an excuse. Timing-dependent bugs triggered by a narrow race condition are hard to catch in a test lab, because the lab has to reproduce the exact millisecond gap between two messages under real network load. What should have been caught was not the bug. It was the decision to let a single piece of recovery logic, with no variation and no isolation between copies, run the safety behavior for the entire national network. Redundant hardware in 114 locations bought AT&amp;T nothing here, because redundant hardware running one identical piece of software is not 114 independent things. It is one thing, running 114 times, that fails on cue.</p>
+
+        <p>Fixing it took two weeks of code review, because nobody had designed a way to inspect 114 live switches for a shared defect quickly. In the meantime, engineers restored service by rolling every switch back to the previous software version, which is itself the point. The only available recovery was to revert the one thing all 114 switches had in common. There was no independent fallback to fail over to, because there was no independent anything. Redundancy without diversity gives you a fast way to confirm a failure and a slow way to undo it. It does not give you a second option while the first one is down.</p>
+
+        <p>The $60 million AT&amp;T lost that day is a rounding error against what the incident actually says about distributed systems sold as resilient. A network built from a hundred copies of the same component, running the same logic, watching for the same failure signature, is not more reliable than a network built from one. It just fails less often and more completely. Anyone buying "redundancy" today, whether it is bank clearing systems, cloud regions, or power grid controllers, should ask whether the backup runs different logic or just more copies of the same logic. If it's the second one, they haven't bought insurance. They've bought a single point of failure with a bigger blast radius.</p>
+
+        <p><em>Sources: Dennis Burke, "All Circuits are Busy Now: The 1990 AT&amp;T Long Distance Network Collapse," California Polytechnic State University (1995); Peterson, I., "Finding Fault," Science News (February 16, 1991); Neumann, P. G., Computer Related Risks, ACM Press (1995); Coy, P. &amp; Lewyn, M., "The Day That Every Phone Seemed Off the Hook," Business Week (January 29, 1990); Engineer's Codex, "How one line of code caused a $60 million loss" (November 13, 2023).</em></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>Second Order. Independent notes, public sources only.</p>
+    </footer>
+  </div>
+</body>
+</html>
